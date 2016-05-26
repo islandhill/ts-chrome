@@ -8,6 +8,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         if (request.action === 'ACTION_CLICK') {
             $("p").css('color', 'red');
             $("#outer-wrapper").before("<div id='extension-div'><p>Hello extension</p></div>");
+            console.log(ts.templates.statsContainer);
             setInterval(updateInvoiceSummary, 5000);
         }
     }
@@ -15,15 +16,9 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 
 let updateInvoiceSummary = () => {
     let token = getCookie('AuthToken');
-    console.log('token: ' + token);
     getInvoiceSummary(token, (data) => {
-        $("#extension-div").html("<div class='stats-container'>" +
-            "<p>" +
-            "<h4>" + data.count +
-            "</h4>" +
-            " Invoices issued." +
-            "</p>" +
-            "</div>");
+        let result = ts.templates.statsContainer(data);
+        $("#extension-div").html(result);
     });
 };
 

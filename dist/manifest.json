@@ -14,7 +14,7 @@
     "matches": [
       "<all_urls>"
     ],
-    "js": ["./libs/jquery.min.js", "./libs/require.js", "content.js"],
+    "js": ["./libs/jquery.min.js", "./libs/handlebars.runtime.min.js", "templates.js", "content.js"],
     "css": ["style.css"]
     }
   ],

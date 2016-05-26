@@ -6,8 +6,14 @@ let sass = require('gulp-sass');
 let del = require('del');
 let jshint = require('gulp-jshint');
 
+var handlebars = require('gulp-handlebars');
+var wrap = require('gulp-wrap');
+var declare = require('gulp-declare');
+var concat = require('gulp-concat');
+
 let jsSource = 'src/js/**/*.js';
 let styleSource = 'src/scss/**/*.scss';
+let hbsSource = 'src/hbs/**/*.hbs';
 
 
 gulp.task('default', () => {
@@ -28,16 +34,28 @@ gulp.task('build:js', () => {
 		.pipe(gulp.dest('dist'));
 });
 
+gulp.task('build:hbs', () => {
+    gulp.src(hbsSource)
+    .pipe(handlebars())
+    .pipe(wrap('Handlebars.template(<%= contents %>)'))
+    .pipe(declare({
+        namespace: 'ts.templates',
+        noRedeclare: true,
+    }))
+    .pipe(concat('templates.js'))
+    .pipe(gulp.dest('dist'));
+});
+
 gulp.task('build:css', () => {
-  return gulp.src(styleSource)
+     gulp.src(styleSource)
     .pipe(sass())
     .pipe(gulp.dest('dist'))
 
 });
 
-gulp.task('clean', () => {
-  return del.sync('dist');
-});
+/*gulp.task('clean', () => {
+    del.sync('dist');
+});*/
 
 gulp.task('check', () => {
   return gulp.src(jsSource)
@@ -46,4 +64,4 @@ gulp.task('check', () => {
 });
 
 
-gulp.task('build', ['build:js', 'build:css']);
+gulp.task('build', ['build:js', 'build:css', 'build:hbs']);

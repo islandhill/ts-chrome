@@ -9,12 +9,3 @@ chrome.browserAction.onClicked.addListener(function(tab) {
   });
 });
 
-chrome.runtime.onMessage.addListener(
-  function(request, sender, sendResponse) {
-    if( request.action === "ACTION_OPEN_NEW_TAB" ) {
-      // chrome.tabs.create({"url": request.url});
-    }
-  }
-);
-
-

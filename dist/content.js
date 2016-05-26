@@ -8,15 +8,16 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     if (request.action === 'ACTION_CLICK') {
         $("p").css('color', 'red');
         $("#outer-wrapper").before("<div id='extension-div'><p>Hello extension</p></div>");
+        console.log(ts.templates.statsContainer);
         setInterval(updateInvoiceSummary, 5000);
     }
 });
 
 var updateInvoiceSummary = function updateInvoiceSummary() {
     var token = getCookie('AuthToken');
-    console.log('token: ' + token);
     getInvoiceSummary(token, function (data) {
-        $("#extension-div").html("<div class='stats-container'>" + "<p>" + "<h4>" + data.count + "</h4>" + " Invoices issued." + "</p>" + "</div>");
+        var result = ts.templates.statsContainer(data);
+        $("#extension-div").html(result);
     });
 };
 
