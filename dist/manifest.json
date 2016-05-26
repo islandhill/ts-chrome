@@ -1,0 +1,26 @@
+{
+  "manifest_version": 2,
+  "name": "ts-chrome",
+  "description": "ts's chrome extension prototype",
+  "version": "1.0",
+
+  "browser_action": {
+    "default_icon": "myob-16x16.png",
+    "default_title": "MOYB Essentials Plugin",
+    "badge": "haha"
+  },
+  "content_scripts": [
+    {
+    "matches": [
+      "<all_urls>"
+    ],
+    "js": ["./libs/jquery.min.js", "./libs/require.js", "content.js"],
+    "css": ["style.css"]
+    }
+  ],
+  "background": {
+    "scripts": ["index.js"]
+  },
+  "permissions": [ "cookies", "tabs", "http://*/*", "https://*/*.myob.com.au" ]
+
+}

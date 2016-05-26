@@ -6,28 +6,26 @@
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         if (request.action === 'ACTION_CLICK') {
-            let firstHref = $("a[href^='http']").eq(0).attr("href");
-            console.log(firstHref);
-
             $("p").css('color', 'red');
-
-            $("#outer-wrapper").before("<div id='extension-div'>hahaha</div>");
-
-            setTimeout(function () {
-                $("#extension-div").html("<p> changed </p>");
-            }, 3000);
-
-            chrome.runtime.sendMessage({"action": "ACTION_OPEN_NEW_TAB", "url": firstHref});
-            let token = getCookie('AuthToken');
-            alert('found a cookie: ' + token);
-            getInvoiceSummary(token,
-                (data) => {
-                    console.log(data);
-                    alert("number of invoices:" + data.count);
-                });
+            $("#outer-wrapper").before("<div id='extension-div'><p>Hello extension</p></div>");
+            setInterval(updateInvoiceSummary, 5000);
         }
     }
 );
+
+let updateInvoiceSummary = () => {
+    let token = getCookie('AuthToken');
+    console.log('token: ' + token);
+    getInvoiceSummary(token, (data) => {
+        $("#extension-div").html("<div class='stats-container'>" +
+            "<p>" +
+            "<h4>" + data.count +
+            "</h4>" +
+            " Invoices issued." +
+            "</p>" +
+            "</div>");
+    });
+};
 
 let getInvoiceSummary = (authToken, handler) => {
     $.get("https://loki.dev.essentials.myob.com/LA/api/businesses/1461289/home/openInvoicesSummary",
