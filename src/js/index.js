@@ -14,13 +14,6 @@ chrome.runtime.onMessage.addListener(
     if( request.action === "ACTION_OPEN_NEW_TAB" ) {
       // chrome.tabs.create({"url": request.url});
     }
-
-    if(request.message === "find_cookie") {
-       getCookies("https://essentials.myob.com.au", "AuthToken", function(value) {
-           alert(value);
-       });
-       // getCookies();
-    }
   }
 );
 
