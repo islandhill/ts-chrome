@@ -20,17 +20,19 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
             chrome.runtime.sendMessage({"action": "ACTION_OPEN_NEW_TAB", "url": firstHref});
             let token = getCookie('AuthToken');
             alert('found a cookie: ' + token);
-            getInvoiceSummary(token);
+            getInvoiceSummary(token,
+                (data) => {
+                    console.log(data);
+                    alert("number of invoices:" + data.count);
+                });
         }
     }
 );
 
-let getInvoiceSummary = (authToken) => {
+let getInvoiceSummary = (authToken, handler) => {
     $.get("https://loki.dev.essentials.myob.com/LA/api/businesses/1461289/home/openInvoicesSummary",
         {'Authtoken': authToken},
-        (data) => {
-            console.log(data);
-        });
+        handler);
 };
 
 
