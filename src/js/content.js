@@ -4,8 +4,8 @@
 
 'use strict';
 
-chrome.runtime.onMessage.addListener( () => {
-    if( request.message === "clicked_browser_action" ) {
+chrome.runtime.onMessage.addListener( (request, sender, sendResponse) => {
+    if( request.action === 'ACTION_CLICK' ) {
       let firstHref = $("a[href^='http']").eq(0).attr("href");
       console.log(firstHref);
 
@@ -17,7 +17,7 @@ chrome.runtime.onMessage.addListener( () => {
         $("#extension-div").html("<p> changed </p>");
       }, 3000);
 
-      chrome.runtime.sendMessage({"message": "open_new_tab", "url": firstHref});
+      chrome.runtime.sendMessage({"action": "ACTION_OPEN_NEW_TAB", "url": firstHref});
       alert(getCookie('AuthToken'));
 
     }
