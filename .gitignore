@@ -1,0 +1,14 @@
+*.class
+*.log
+
+# mac os x
+.DS_Store
+
+# intellij ide
+.idea
+# *.iml is coverd by .idea
+# *.iml
+
+dist/*
+target/
+node_modules
