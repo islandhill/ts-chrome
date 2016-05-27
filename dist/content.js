@@ -4,13 +4,19 @@
 
 'use strict';
 
+var intervalId = void 0;
+
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-    if (request.action === 'ACTION_CLICK') {
-        $("p").css('color', 'red');
+    if (request.action === 'ACTION_ACTIVATE') {
+        //$("p").css('color', 'red');
         $("#outer-wrapper").before("<div id='extension-div'></div>");
         updateInvoiceSummary();
-        console.log(ts.templates.statsContainer);
-        setInterval(updateInvoiceSummary, 3000);
+        intervalId = setInterval(updateInvoiceSummary, 3000);
+    }
+
+    if (request.action === 'ACTION_DEACTIVATE') {
+        clearInterval(intervalId);
+        $("#extension-div").remove();
     }
 });
 
@@ -38,7 +44,7 @@ function getWebUrl(businessId, context) {
     return _getBaseUrl() + ('/app.htm#businesses/' + businessId + '/' + context);
 }
 
-var getCookie = function getCookie(cname) {
+function getCookie(cname) {
     var name = cname + "=";
     var ca = document.cookie.split(';');
     for (var i = 0; i < ca.length; i++) {
@@ -51,4 +57,4 @@ var getCookie = function getCookie(cname) {
         }
     }
     return "";
-};
+}

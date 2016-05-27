@@ -4,13 +4,19 @@
 
 'use strict';
 
+let intervalId;
+
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-        if (request.action === 'ACTION_CLICK') {
-            $("p").css('color', 'red');
+        if (request.action === 'ACTION_ACTIVATE') {
+            //$("p").css('color', 'red');
             $("#outer-wrapper").before("<div id='extension-div'></div>");
             updateInvoiceSummary();
-            console.log(ts.templates.statsContainer);
-            setInterval(updateInvoiceSummary, 3000);
+            intervalId = setInterval(updateInvoiceSummary, 3000);
+        }
+
+        if(request.action === 'ACTION_DEACTIVATE') {
+            clearInterval(intervalId);
+            $("#extension-div").remove();
         }
     }
 );
@@ -42,7 +48,7 @@ function getWebUrl(businessId, context) {
 }
 
 
-let getCookie = (cname) => {
+function getCookie(cname) {
     let name = cname + "=";
     let ca = document.cookie.split(';');
     for (var i = 0; i < ca.length; i++) {

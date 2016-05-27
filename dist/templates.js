@@ -5,7 +5,7 @@ this["ts"]["templates"]["statsContainer"] = Handlebars.template({"compiler":[6,"
 
   return "<div class='stats-container'>\n    <a href='https://loki.dev.essentials.myob.com/LA/app.htm#businesses/1461289/invoices' class='label tag'>\n        <span class='badge blue'>"
     + alias1(((helper = (helper = helpers.count || (depth0 != null ? depth0.count : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0,{"name":"count","hash":{},"data":data}) : helper)))
-    + "</span> Invoices issued\n    </a>\n    <a href='#' class='label tag'>\n        <span class='badge red'>$"
+    + "</span> Invoices Issued\n    </a>\n    <a href='https://loki.dev.essentials.myob.com/LA/app.htm#businesses/1461289/invoices' class='label tag'>\n        <span class='badge red'>$"
     + alias1(this.lambda(((stack1 = (depth0 != null ? depth0.due : depth0)) != null ? stack1.value : stack1), depth0))
-    + "</span> Invoices due\n    </a>\n</div>";
+    + "</span> Invoices Due\n    </a>\n    <a href='https://loki.dev.essentials.myob.com/LA/app.htm#businesses/1461289/invoices/new' class='label tag'>Create Invoice\n    </a>\n</div>";
 },"useData":true});
