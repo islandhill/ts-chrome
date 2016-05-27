@@ -7,9 +7,10 @@
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         if (request.action === 'ACTION_CLICK') {
             $("p").css('color', 'red');
-            $("#outer-wrapper").before("<div id='extension-div'><p>Hello extension</p></div>");
+            $("#outer-wrapper").before("<div id='extension-div'></div>");
+            updateInvoiceSummary();
             console.log(ts.templates.statsContainer);
-            setInterval(updateInvoiceSummary, 5000);
+            setInterval(updateInvoiceSummary, 3000);
         }
     }
 );
@@ -23,10 +24,22 @@ let updateInvoiceSummary = () => {
 };
 
 let getInvoiceSummary = (authToken, handler) => {
-    $.get("https://loki.dev.essentials.myob.com/LA/api/businesses/1461289/home/openInvoicesSummary",
+    $.get(getApiUrl('1461289', '/home/openInvoicesSummary'),
         {'Authtoken': authToken},
         handler);
 };
+
+function _getBaseUrl() {
+    return "https://loki.dev.essentials.myob.com/LA";
+}
+
+function getApiUrl(businessId, context) {
+    return _getBaseUrl() + `/api/businesses/${businessId}/${context}`;
+}
+
+function getWebUrl(businessId, context) {
+    return _getBaseUrl() + `/app.htm#businesses/${businessId}/${context}`;
+}
 
 
 let getCookie = (cname) => {

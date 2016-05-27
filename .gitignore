@@ -9,7 +9,6 @@
 # *.iml is coverd by .idea
 # *.iml
 
-
 target/
 node_modules
 #dist/

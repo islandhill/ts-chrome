@@ -1,2 +1,6 @@
 #extension-div .stats-container {
   padding: 10px; }
+
+#extension-div a.tag {
+  font-weight: bold;
+  color: #000066; }
