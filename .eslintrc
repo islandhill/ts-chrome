@@ -1,0 +1,46 @@
+{
+  "globals": {
+    "$": false,
+    "document": false,
+    "chrome": false
+  },
+  "rules": {
+    "semi": [2, "always"],
+    "no-unused-expressions": [0],
+    "no-underscore-dangle": [0],
+    "quote-props": [2, "as-needed", {"keywords": true}],
+    "no-multi-spaces": [0],
+    "no-unused-vars": [2, {"vars": "all", "args": "after-used", "argsIgnorePattern": "^_"}],
+    "no-loop-func": [0],
+    "new-cap": [0],
+    "key-spacing": [0],
+    "strict": [0],
+    "indent": [
+      2,
+      2
+    ],
+    "quotes": [
+      1,
+      "single",
+      "avoid-escape"
+    ],
+    "curly": [0],
+    "max-len": [1, 140],
+    "jsx-quotes": 1,
+  },
+  "parserOptions": {
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true,
+      "experimentalObjectRestSpread": true,
+      "spread" : true,
+      "restParams" : true
+    }
+  },
+  "env": {
+    "es6": true,
+    "browser": true,
+    "node": true,
+    "jasmine": true
+  }
+}

@@ -4,13 +4,14 @@ let gulp = require('gulp');
 let babel = require('gulp-babel');
 let sass = require('gulp-sass');
 let del = require('del');
-let jshint = require('gulp-jshint');
+let eslint = require('gulp-eslint');
 
 var handlebars = require('gulp-handlebars');
 var wrap = require('gulp-wrap');
 var declare = require('gulp-declare');
 var concat = require('gulp-concat');
 
+let nodeModule = 'node_modules/**/*.js';
 let jsSource = 'src/js/**/*.js';
 let styleSource = 'src/scss/**/*.scss';
 let hbsSource = 'src/hbs/**/*.hbs';
@@ -59,8 +60,9 @@ gulp.task('build:css', () => {
 
 gulp.task('check', () => {
   return gulp.src(jsSource)
-    .pipe(jshint())
-    .pipe(jshint.reporter('default'));
+    .pipe(eslint())
+    .pipe(eslint.format())
+    .pipe(eslint.failAfterError());
 });
 
 
